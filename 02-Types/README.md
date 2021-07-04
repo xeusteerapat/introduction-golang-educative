@@ -175,3 +175,147 @@ func main() {
     event.Date, event.Lat, event.Lon)
 }
 ```
+
+## Composition
+
+**_Composition as an Alternative to Inheritance_**. Inheritance is something that isn’t supported by Go. Instead you have to think in terms of _composition and interfaces_.
+
+```go
+package main
+
+import "fmt"
+
+type User struct {
+  Id       int
+  Name     string
+  Location string
+}
+
+// type Player with one additional attribute
+
+type Player struct {
+  Id       int
+  Name     string
+  Location string
+  GameId   int // added attribute
+}
+
+func main() {
+  p := Player{}
+  p.Id = 42
+  p.Name = "Teerapat"
+  p.Location = "BKK"
+  p.GameId = 471983
+  fmt.Printf("%+v", p) // the value in a default format when printing structs,
+  // the plus flag (%+v) adds field names
+  // {User:{Id:42 Name:Teerapat Location:BKK} GameId:471983}
+}
+```
+
+It can be simplified by **composing** our struct.
+
+```go
+type User struct {
+  Id             int
+  Name, Location string
+}
+
+type Player struct {
+  User //user will contain all the required attributes
+  GameId int
+}
+```
+
+then our code will look like this
+
+```go
+package main
+
+import "fmt"
+
+type User struct {
+  Id             int
+  Name, Location string
+}
+
+// type Player with one additional attribute
+
+type Player struct {
+  User // user will contain all the required attributes
+  GameId int // additional attribute
+}
+
+func main() {
+  p := Player{} //initializing
+  p.Id = 42
+  p.Name = "Teerapat"
+  p.Location = "BKK"
+  p.GameId = 471983
+  fmt.Printf("%+v", p)
+}
+```
+
+The other option is to use a struct literal
+
+```go
+package main
+
+import "fmt"
+
+type User struct {
+  Id             int
+  Name, Location string
+}
+
+type Player struct {
+  User
+  GameId int
+}
+
+func main() {
+  p := Player{
+    User{Id: 42, Name: "Teerapat", Location: "BKK"},
+    471983,
+  }
+
+  fmt.Printf(
+    "Id: %d, Name: %s, Location: %s, Game id: %d\n",
+    p.Id, p.Name, p.Location, p.GameId)
+
+  // Directly set a field defined on the Player struct
+  p.Id = 11
+  fmt.Printf("%+v", p)
+}
+```
+
+Because our struct is composed of another struct, the methods on the `User` struct is also available to the `Player`
+
+```go
+package main
+
+import "fmt"
+
+type User struct {
+  Id             int
+  Name, Location string
+}
+
+func (user *User) Greetings() string {
+  return fmt.Sprintf("Hi %s from %s",
+    user.Name, user.Location)
+}
+
+type Player struct {
+  User
+  GameId int
+}
+
+func main() {
+  player := Player{}
+  player.Id = 42
+  player.Name = "Teerapat"
+  player.Location = "BKK"
+
+  // we can use method from User
+  fmt.Println(player.Greetings()) // Hi Teerapat from BKK
+}
