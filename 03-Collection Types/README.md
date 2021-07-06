@@ -152,3 +152,10 @@ func main() {
     // nil!
 }
 ```
+
+Resources about Slices
+
+- [Slice Tricks](https://github.com/golang/go/wiki/SliceTricks)
+- [Go by Example: Slices](https://gobyexample.com/slices)
+- [Practical Go Lessons: Slices](https://www.practical-go-lessons.com/chap-21-slices)
+- [Effective Go: Slices](https://golang.org/doc/effective_go#slices)
