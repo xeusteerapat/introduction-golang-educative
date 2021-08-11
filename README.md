@@ -1,6 +1,6 @@
 # An Introduction to Programming in Go
 
-Learn Go prpgramming from [Educative.io](https://www.educative.io/courses/introduction-to-programming-in-go)
+Learn Go programming from [Educative.io](https://www.educative.io/courses/introduction-to-programming-in-go)
 
 ## Table of Content
 
