@@ -159,3 +159,54 @@ Resources about Slices
 - [Go by Example: Slices](https://gobyexample.com/slices)
 - [Practical Go Lessons: Slices](https://www.practical-go-lessons.com/chap-21-slices)
 - [Effective Go: Slices](https://golang.org/doc/effective_go#slices)
+
+## Range in For-Loops
+
+The `range` form of the for loop iterates over a `slice` or a `map`. Being able to iterate over all the elements of a data structure is very useful and `range` simplifies the iteration.
+
+syntax
+
+```go
+func main() {
+    list := make([]int, 10) // create slice length of 10
+    for i, v := range list { //loops over the length (0 - 9)
+        fmt.Printf("%d = %d\n", i, v) // i = index, v = value
+    }
+}
+```
+
+more examples
+
+```go
+package main
+
+import "fmt"
+
+var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+
+func main() {
+    for i, v := range pow { //loops over the length of pow
+        fmt.Printf("2**%d = %d\n", i, v)
+    }
+}
+```
+
+You can skip the index or value by assigning to `_`. If you only want the index, drop the “, value” entirely.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    pow := make([]int, 10) // [0 0 0 0 0 0 0 0 0 0]
+
+    for i := range pow {
+        pow[i] = 1 << uint(i) // pow = [1 2 4 8 16 32 64 128 256 512]
+    }
+
+    for _, value := range pow {
+        fmt.Printf("%d\n", value) // print only value of pow
+    }
+}
+```
