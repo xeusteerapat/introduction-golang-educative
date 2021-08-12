@@ -210,3 +210,73 @@ func main() {
     }
 }
 ```
+
+## Break & Continue
+
+You can stop the iteration by using `break` keyword.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    pow := make([]int, 10)
+
+    for i := range pow {
+        pow[i] = 1 << uint(i)
+
+        if pow[i] >= 16 {
+            break // stop when pow reaches 16
+        }
+    }
+
+    fmt.Println(pow) // [1 2 4 8 16 0 0 0 0 0]
+}
+```
+
+and `continue` will skip an iteration
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    pow := make([]int, 10)
+
+    for i := range pow {
+        if i%2 == 0 {
+            continue // skip
+        }
+
+        pow[i] = 1 << uint(i)
+    }
+
+    fmt.Println(pow) // [0 2 0 8 0 32 0 128 0 512]
+}
+```
+
+Loop iterates over `key, value` pair
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    cities := map[string]int{
+        "Bangkok":    10539000,
+        "Chiang Mai": 127240,
+        "Nan":        20212,
+    }
+
+    for key, value := range cities {
+        fmt.Printf("%s has %d populations\n", key, value)
+    }
+
+    // Nan has 20212 populations
+    // Bangkok has 10539000 populations
+    // Chiang Mai has 127240 populations
+}
+```
