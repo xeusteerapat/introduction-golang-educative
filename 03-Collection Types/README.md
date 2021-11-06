@@ -280,3 +280,36 @@ func main() {
     // Chiang Mai has 127240 populations
 }
 ```
+
+## Map
+
+A map **maps** keys to values, like a **dictionary** or **hashes**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    rhcp := map[string]int{
+        "Anthony Kiedis":  58,
+        "Flea":            58,
+        "AChad Smith":     59,
+        "John Frusciante": 51,
+    }
+
+    fmt.Printf("%#v\n", rhcp)
+
+    for key, value := range rhcp {
+        fmt.Printf("%s is %d years old\n", key, value)
+    }
+}
+
+// ## Result
+// map[string]int{"AChad Smith":59, "Anthony Kiedis":58, "Flea":58, "John Frusciante":51}
+
+// Anthony Kiedis is 58 years old
+// Flea is 58 years old
+// AChad Smith is 59 years old
+// John Frusciante is 51 years old
+```
